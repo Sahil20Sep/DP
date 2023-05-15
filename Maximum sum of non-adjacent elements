@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+
+int func(int i, vector<int> &dp, vector<int> &nums){
+    if(i < 0){
+        return 0;
+    }
+    if(dp[i] != -1){
+        return dp[i];
+    }
+    int ans = func(i - 1, dp, nums);
+    ans = max(ans, func(i - 2, dp, nums) + nums[i]);
+    // cout << i << ' ' << ans << endl;
+    return dp[i] = ans;
+}
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    vector<int> dp(nums.size(), -1);
+    return func(nums.size() - 1, dp, nums);
+}
