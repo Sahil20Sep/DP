@@ -52,3 +52,32 @@ int mazeObstacles(int n, int m, vector< vector< int> > &mat) {
     vector<vector<int>> dp(n, vector<int> (m, -1));
 	return func(n - 1, m - 1, dp, mat);
 }
+
+--------------------------------------------------------------------------------
+			(minimum cost to bottem right)
+
+#include <bits/stdc++.h> 
+
+int func(int i, int j, vector<vector<int>> &grid, vector<vector<int>> &dp){
+    if(i == 0 && j == 0){
+        return grid[0][0];
+    }
+    if(dp[i][j] != -1){
+        return dp[i][j];
+    }
+    int ans = INT_MAX;
+    if(i - 1 >= 0){
+        ans = min(ans, func(i - 1, j, grid, dp) + grid[i][j]);
+    }
+    if(j - 1 >= 0){
+        ans = min(ans, func(i, j - 1, grid, dp) + grid[i][j]);
+    }
+    return dp[i][j] = ans;
+}
+
+int minSumPath(vector<vector<int>> &grid) {
+    int n = grid.size();
+    int m = grid[0].size();
+    vector<vector<int>> dp(n, vector<int> (m, -1));
+    return func(n - 1, m - 1, grid, dp);
+}
