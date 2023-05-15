@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+#define ll long long 
+
+const ll mod = 1e9 + 7;
+
+ll func(ll n, vector<ll> &dp){
+    if(n == 0){
+        return 1;
+    }
+    if(dp[n] != -1){
+        return dp[n];
+    }
+    ll ans = 0;
+    ans = (ans + func(n - 1, dp)) % mod;
+    if(n > 1){
+        ans = (ans + func(n - 2, dp)) % mod;
+    }
+    return dp[n] = ans;
+}
+
+ll countDistinctWays(ll n) {
+    vector<ll> dp(n + 1, -1);
+    return func(n, dp);
+}
