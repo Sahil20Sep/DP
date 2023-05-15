@@ -28,3 +28,25 @@ int minimumPathSum(vector<vector<int>>& t, int n){
 	}
 	return ans;
 }
+
+-----------------------------------------------------------------------------------
+
+#include <bits/stdc++.h> 
+
+int func(int row, int end, vector<vector<int>> &t, vector<vector<int>> &dp){
+	if(row >= t.size()){
+		return 0; 
+	}
+	if(dp[row][end] != -1){
+		return dp[row][end];
+	}
+	int ans = INT_MAX;
+	ans = min(ans, func(row + 1, end, t, dp) + t[row][end]);
+	ans = min(ans, func(row + 1, end + 1, t, dp) + t[row][end]);
+	return dp[row][end] = ans;
+}
+
+int minimumPathSum(vector<vector<int>>& t, int n){
+	vector<vector<int>> dp(n, vector<int> (n, -1));
+	return func(0, 0, t, dp);
+}
