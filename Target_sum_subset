@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+
+bool func(int i, int target, vector<int> &v, vector<vector<int>> &dp){
+    if(target == 0){
+        return true;
+    }
+    if(i < 0){
+        return false;
+    }
+    if(dp[i][target] != -1){
+        return dp[i][target];
+    }
+    bool ans = false;
+    ans |= func(i - 1, target, v, dp);
+    if(target - v[i] >= 0){
+        ans |= func(i - 1, target - v[i], v, dp);
+    }
+    return dp[i][target] = ans;
+}
+
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    vector<vector<int>> dp(n, vector<int> (k + 1, -1));
+    return func(n - 1, k, arr, dp);
+}
