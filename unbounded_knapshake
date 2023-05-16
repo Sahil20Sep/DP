@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+
+int func(int i, int have, vector<int> &value, vector<int> &weight, vector<vector<int>> &dp){
+    if(i < 0){
+        return 0;
+    }
+    if(dp[i][have] != -1){
+        return dp[i][have];
+    }
+    int ans = INT_MIN;
+    ans = max(ans, func(i - 1, have, value, weight, dp));
+    if(have - weight[i] >= 0){
+        ans = max(ans, func(i, have - weight[i], value, weight, dp) + value[i]);
+    }
+    return dp[i][have] = ans;
+}
+
+int unboundedKnapsack(int n, int w, vector<int> &value, vector<int> &weight)
+{
+    vector<vector<int>> dp(n, vector<int> (w + 1, -1));
+    return func(n - 1, w, value, weight, dp);
+}
+
+for loop gives tle
