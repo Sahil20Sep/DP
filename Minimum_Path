@@ -1,0 +1,27 @@
+#include <bits/stdc++.h> 
+
+int func(int s, int c, vector<vector<int>> &vec, vector<vector<int>> &dp){
+    if(s >= vec.size()){
+        return 0;
+    }
+    if(dp[s][c] != -1){
+        return dp[s][c];
+    }
+    int ans = INT_MAX;
+    if(c >= 0 && c < vec.size())
+        ans = min(ans, func(s + 1, c, vec, dp) + vec[s][c]);
+    if(c + 1 >= 0 && c + 1 < vec.size())
+        ans = min(ans, func(s + 1, c + 1, vec, dp) + vec[s][c]);
+    if(c - 1 >= 0 && c - 1 < vec.size())
+        ans = min(ans, func(s + 1, c - 1, vec, dp) + vec[s][c]);
+    return dp[s][c] = ans;
+}
+
+int minFallingPathSum(vector<vector<int>> &vec, int n) {
+    vector<vector<int>> dp(n, vector<int> (n, -1));
+    int ans = INT_MAX;
+    for(int i = 0; i < n; i++){
+        ans = min(ans, func(0, i, vec, dp));
+    }
+    return ans;
+}
