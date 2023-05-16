@@ -104,4 +104,9 @@ int countPartitions(int n, int d, vector<int> &arr) {
     }
 }
 
+----------------------------------------------------------------------------------
+
+        (same problem by given problem is + - + - + -)
+        assignnt this and say how many ways to archive the target)
+
 
