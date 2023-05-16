@@ -1,0 +1,64 @@
+      (Time limit exceed)
+
+#include <bits/stdc++.h> 
+
+long long func(int i, int tar, vector<int> &num, vector<vector<int>> &dp){
+    if(tar == 0){
+        return 0LL;
+    }
+    if(i < 0){
+        return INT_MAX;
+    }
+    if(dp[i][tar] != -1){
+        return dp[i][tar];
+    }
+    long long ans = INT_MAX;
+    for(int j = 0; j <= tar; j += num[i]){
+        ans = min(ans, func(i - 1, tar - j, num, dp) + (j / num[i]));
+    }
+    return dp[i][tar] = ans;
+}
+
+int minimumElements(vector<int> &num, int x)
+{
+    vector<vector<int>> dp(num.size(), vector<int> (x + 1, -1));
+    int ans = func(num.size() - 1, x, num, dp);
+    if(ans == INT_MAX){
+        return -1;
+    }else{
+        return ans;
+    }
+}
+
+------------------------------------------------------------------------------------------
+
+#include <bits/stdc++.h> 
+
+long long func(int i, int tar, vector<int> &num, vector<vector<int>> &dp){
+    if(tar == 0){
+        return 0LL;
+    }
+    if(i < 0){
+        return INT_MAX;
+    }
+    if(dp[i][tar] != -1){
+        return dp[i][tar];
+    }
+    long long ans = INT_MAX;
+    ans = min(ans, func(i - 1, tar, num, dp));
+    if(tar - num[i] >= 0){
+        ans = min(ans, func(i, tar - num[i], num, dp) + 1);
+    }
+    return dp[i][tar] = ans;
+}
+
+int minimumElements(vector<int> &num, int x)
+{
+    vector<vector<int>> dp(num.size(), vector<int> (x + 1, -1));
+    int ans = func(num.size() - 1, x, num, dp);
+    if(ans == INT_MAX){
+        return -1;
+    }else{
+        return ans;
+    }
+}
