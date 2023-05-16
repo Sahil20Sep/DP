@@ -12,7 +12,7 @@ int func(int i, int target, vector<int> &num, vector<vector<int>> &dp){
     }
     int ans = 0;
     ans += func(i - 1, target, num, dp);
-    if(target - num[i] >= 0){
+    if(target - num[i] >= 0 && num[i] != 0){
         ans += func(i - 1, target - num[i], num, dp);
     }
     return dp[i][target] = ans;
@@ -21,16 +21,6 @@ int func(int i, int target, vector<int> &num, vector<vector<int>> &dp){
 int findWays(vector<int> &num, int tar)
 {
     vector<vector<int>> dp(num.size(), vector<int> (tar + 1, -1));
-    vector<int> cnt(num.size(), 0);
-    cnt[0] = (num[0] == 0);
-    for(int i = 1; i < num.size(); i++){
-        cnt[i] = cnt[i - 1] + (num[i] == 0);
-    }
     int ans = func(num.size() - 1, tar, num, dp);
-    for(int i = num.size() - 1; i >= 0; i--){
-        if(num[i]){
-            ans += (pow(2, cnt[i]) - 1);
-        }
-    }
-    return ans;
+    return ans * pow(2, count(num.begin(), num.end(), 0));
 }
