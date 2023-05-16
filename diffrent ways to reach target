@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+
+int func(int i, int tar, int *v, vector<vector<int>> &dp){
+    if(tar == 0){
+        return 1;
+    }
+    if(i < 0){
+        return 0;
+    }
+    if(dp[i][tar] != -1){
+        return dp[i][tar];
+    }
+    int ans = 0;
+    for(int j = 0; j <= tar; j += v[i]){
+        ans += func(i - 1, tar - j, v, dp);
+    }
+    return dp[i][tar] = ans;
+}
+
+long countWaysToMakeChange(int *v, int n, int value)
+{
+    vector<vector<int>> dp(n, vector<int> (value + 1, -1));
+    return func(n - 1, value, v, dp);
+}
+
+----------------------------------------------------------------------------
+
+#include<bits/stdc++.h>
+
+int func(int i, int tar, int *v, vector<vector<int>> &dp){
+    if(tar == 0){
+        return 1;
+    }
+    if(i < 0){
+        return 0;
+    }
+    if(dp[i][tar] != -1){
+        return dp[i][tar];
+    }
+    int ans = 0;
+    ans += func(i - 1, tar, v, dp);
+    if(tar - v[i] >= 0){
+        ans += func(i, tar - v[i], v, dp);
+    }
+    return dp[i][tar] = ans;
+}
+
+long countWaysToMakeChange(int *v, int n, int value)
+{
+    vector<vector<int>> dp(n, vector<int> (value + 1, -1));
+    return func(n - 1, value, v, dp);
+}
