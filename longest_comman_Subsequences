@@ -1,4 +1,5 @@
-it can be consecutive or not consecutive but maintain the order.
+subsequences it can be consecutive or not consecutive but maintain the order.
+while substring is consecutive and maintain the order.
 
 
 #include <bits/stdc++.h>
