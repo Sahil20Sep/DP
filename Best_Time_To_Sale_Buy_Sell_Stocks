@@ -47,3 +47,53 @@ long getMaximumProfit(long *value, int n)
     vector<vector<int>> dp(n, vector<int> (2, -1));
     return func(0, 1, value, dp, n);
 }
+
+
+----------------------------------------------------------------------------------
+
+                (II)
+
+#include <bits/stdc++.h>
+int func(int i, int choose, int have, vector<int> &value, vector<vector<vector<int>>> &dp, int n){
+    if(i == n || have >= 2){
+        return 0;
+    }
+    if(dp[i][choose][have] != -1){
+        return dp[i][choose][have];
+    }
+    if(choose){
+        return dp[i][choose][have] = max(func(i + 1, 1, have, value, dp, n), func(i + 1, 0, have, value, dp, n) - value[i]);
+    }else{
+        return dp[i][choose][have] = max(func(i + 1, 0, have, value, dp, n), func(i + 1, 1, have + 1, value, dp, n) + value[i]);
+    }
+}
+
+int maxProfit(vector<int>& prices, int n)
+{
+    vector<vector<vector<int>>> dp(n, vector<vector<int>> (2, vector<int> (3, -1)));
+    return func(0, 1, 0, prices, dp, n);
+}
+
+-----------------------------------------------------------------------------------
+
+#include <bits/stdc++.h>
+int func(int i, int choose, int have, vector<int> &value, vector<vector<vector<int>>> &dp, int n, int k){
+    if(i == n || have >= k){
+        return 0;
+    }
+    if(dp[i][choose][have] != -1){
+        return dp[i][choose][have];
+    }
+    if(choose){
+        return dp[i][choose][have] = max(func(i + 1, 1, have, value, dp, n, k), func(i + 1, 0, have, value, dp, n, k) - value[i]);
+    }else{
+        return dp[i][choose][have] = max(func(i + 1, 0, have, value, dp, n, k), func(i + 1, 1, have + 1, value, dp, n, k) + value[i]);
+    }
+}
+
+int maximumProfit(vector<int> &prices, int n, int k)
+{
+    vector<vector<vector<int>>> dp(n, vector<vector<int>> (2, vector<int> (k + 1, -1)));
+    return func(0, 1, 0, prices, dp, n, k);
+}
+
