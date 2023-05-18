@@ -1,0 +1,16 @@
+1.
+
+#include <bits/stdc++.h> 
+int maximumProfit(vector<int> &v){
+    vector<int> mn(v.size());
+    int ans = INT_MIN;
+    mn[0] = v[0];
+    for(int i = 1; i < v.size(); i++){
+        mn[i] = min(mn[i - 1], v[i]);
+        ans = max(ans, v[i] - mn[i]);
+    }
+    return ans;
+}
+
+--------------------------------------------------------------------------------
+
