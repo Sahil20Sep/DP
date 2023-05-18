@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+
+int func(int i, int prev, int arr[], vector<vector<int>> &dp, int n) {
+    if(i == n){
+        return 0;
+    }
+    if(dp[i][prev + 1] != -1){
+        return dp[i][prev + 1];
+    }
+    int ans = 0;
+    ans = max(ans, func(i + 1, prev, arr, dp, n));
+    if(prev == -1 || arr[prev] < arr[i]){
+        ans = max(ans, 1 + func(i + 1, i, arr, dp, n));
+    }
+    return dp[i][prev + 1] = ans;
+}
+
+int longestIncreasingSubsequence(int arr[], int n) {
+    vector<vector<int>> dp(n, vector<int> (n + 1, -1));
+    return func(0, -1, arr, dp, n);
+}
