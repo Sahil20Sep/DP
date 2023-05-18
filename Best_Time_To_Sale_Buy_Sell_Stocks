@@ -12,5 +12,16 @@ int maximumProfit(vector<int> &v){
     return ans;
 }
 
+#include <bits/stdc++.h> 
+int maximumProfit(vector<int> &v){
+    int mn = v[0];
+    int ans = INT_MIN;
+    for(int i = 1; i < v.size(); i++){
+        mn = min(mn, v[i]);
+        ans = max(ans, v[i] - mn);
+    }
+    return ans;
+}
+
 --------------------------------------------------------------------------------
 
